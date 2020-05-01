@@ -69,7 +69,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect();
+let socket = io.connect('http://localhost:3000');
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
 
@@ -254,4 +254,3 @@ window.onload = function(event) {
     loadData();
 
 };
-screen.orientation.lock("landscape");
