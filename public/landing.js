@@ -1,4 +1,4 @@
-let socket = io.connect('192.168.1.130');
+let socket = io.connect();
 console.log(socket);
 
 var x = document.getElementById("submit").onclick = function(e) {

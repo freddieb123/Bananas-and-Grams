@@ -69,7 +69,7 @@ let url = document.URL;
 }*/
 
 
-let socket = io.connect('192.168.1.130');
+let socket = io.connect();
 
 let startGame = (list,total) => {
   shuffler(list);
