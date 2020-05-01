@@ -69,7 +69,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect('http://localhost:3000');
+let socket = io.connect();
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
 
@@ -218,7 +218,7 @@ function newDrawing(data) {
   console.log(target_tile);
   target_tile.src = lettersList[data.i]
 }
-
+/*
 let resetGame = (lettersList,totalTiles) => {
   for (let p = 0; p< totalTiles; p++) {
     let id = 'tile'+(p+1);
@@ -233,7 +233,7 @@ let resetGame = (lettersList,totalTiles) => {
   createTiles(totalTiles);
   console.log('reset')
   n = null;
-}
+}*/
 
 //count session number
 window.onload = function(event) {
