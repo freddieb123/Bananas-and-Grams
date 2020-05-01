@@ -69,7 +69,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect();
+let socket = io.connect('http://localhost:3000');
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
 
@@ -122,7 +122,11 @@ let createTiles = (totalTiles) => {
 
     tiles[i] = img
 
-    tiles[i].addEventListener('click', function(e){
+    tiles[i].addEventListener('click', clickable);
+    tiles[i].addEventListener("touchend", dragender, false);
+    tiles[i].addEventListener("touchstart", dragstarter, false);
+
+    function clickable() {
       tiles[i].src = lettersList[i]
       data = {
         i: i,
@@ -130,24 +134,28 @@ let createTiles = (totalTiles) => {
         gameID: gameID
       }
       socket.emit('turn',data)
-      console.log('sending to server')
-    })
+    };
 
-    tiles[i].addEventListener('dragstart', function(e) {
+    tiles[i].addEventListener('dragstart', dragstarter);
+
+    function dragstarter () {
       draggedItem = tiles[i];
       console.log(draggedItem);
       setTimeout(function() {
         tiles[i].style.display='none';
       },0);
-      })
+    };
 
-    tiles[i].addEventListener('dragend', function(e) {
+    tiles[i].addEventListener('dragend', dragender);
+
+    function dragender () {
+      draggedItem = tiles[i];
       console.log('dragend');
       setTimeout(function(){
         draggedItem.style.display='block';
         draggedItem = null;
       },0);
-    })
+    };
 
   }
   return tiles
@@ -189,7 +197,11 @@ for (let j =0; j<boxes.length;j++) {
   box.addEventListener('dragenter', function(e) {
     e.preventDefault();
   })
-  box.addEventListener('drop', function(e) {
+  box.addEventListener('drop', dropper);
+  box.addEventListener('touchend', dropper);
+
+
+  function dropper() {
     if (box.innerHTML == ' ' && draggedItem.src.includes('Tile.jpg') === false) {
       console.log(draggedItem.src)
       box.append(draggedItem);
@@ -199,9 +211,8 @@ for (let j =0; j<boxes.length;j++) {
         gameID: gameID
       }
       socket.emit('drop', dataDrop)
-      console.log('sending to server')
     }
-  })
+  }
 }
 
 
