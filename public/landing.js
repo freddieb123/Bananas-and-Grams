@@ -6,7 +6,8 @@ var x = document.getElementById("submit").onclick = function(e) {
   let newurl = '/' + document.getElementById('game-name').value
   console.log('redirect');
   console.log(newurl);
-  var window = window.open(newurl, windowName, [windowFeatures]);
+  /*window.location.assign(newurl);*/
+  window.location.assign('/snatch/index.html')
 }
 
 console.log(x)
