@@ -69,7 +69,7 @@ let url = document.URL;
 }*/
 
 
-let socket = io.connect('http://localhost:3000');
+let socket = io.connect('192.168.1.130');
 
 let startGame = (list,total) => {
   shuffler(list);
@@ -164,9 +164,9 @@ async function loadData(){
   //load the tiles that have been dragged to a player's boxes
   for (k=0;k<dataDrop.length;k++) {
     if (data[k].url === window.location.href) {
-    let box = boxes[dataDrop[k].location];
-    let draggedtile = document.getElementById(dataDrop[k].id)
-    box.append(draggedtile);
+      let box = boxes[dataDrop[k].location];
+      let draggedtile = document.getElementById(dataDrop[k].id)
+      box.append(draggedtile);
   }
 }
 }
