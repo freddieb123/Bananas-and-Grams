@@ -178,7 +178,6 @@ async function loadData(){
     }
   //load the tiles that have been dragged to a player's boxes
   for (k=0;k<dataDrop.length;k++) {
-    console.log(dataDrop)
     if (data[k].gameID === gameID) {
       let box = boxes[dataDrop[k].location];
       let draggedtile = document.getElementById(dataDrop[k].id)
