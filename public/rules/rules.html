@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Word, Words, Words, Words, Words - the Rules </title>
+
+      <link href='../landing.css' rel = 'stylesheet' type = "text/css">
+      </link>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href='https://fonts.googleapis.com/css?family=Work+Sans' rel="stylesheet" type="text/css">
+      </link>
+  </head>
+  <body>
+    <div id ='topbar'>>
+      <h1 id = page-title class=typewriter>
+        <a href="http://www.wordswordswordswords.com">Snatch:<br><br> the Rules </a>
+      </h1>
+    </div>
+    <nav><a href = '/index.html'> Back to the game </a></nav>
+    <div id = 'lobby'>
+      <div id='lobby-inside'>
+        <form id='new-game' action="index.html" method="post">
+          <p class = 'intro'>
+            Take turns to turn the tiles over until a word of three or more letters can be made.
+            If you see and say the word first, take it.<br><br> Watch out.<br><br> From now on the game has 2 sides
+            as words are made both from the centre pool of letters or snatched from other players if
+            changed by one or more letters. So your CAT can become their CART to be snatched away as
+            TRACK seconds later. Play on until all 144 letters have been turned and you agree to stop
+            playing and start scoring.<br><br>
+
+            To score: 1 point for the first three letters of any word, and 1 more point for each extra letter. So
+            DOG would score 1, and CORONA would score 4.
+          </p>
+        </form>
+      </div>
+    </div>
+
+    <script src="../addons/socket.io-client.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+    <script type = text/javascript src = "landing.js"></script>
+  </body>
+  <html>

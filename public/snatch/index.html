@@ -1,0 +1,373 @@
+ <!DOCTYPE html>
+<html>
+  <head>
+    <title> Snatch </title>
+
+      <link href='./style.css' rel = 'stylesheet' type = "text/css">
+      </link>
+      <link href='https://fonts.googleapis.com/css?family=Work+Sans' rel="stylesheet" type="text/css">
+      </link>
+  </head>
+  <body>
+    <div>
+      <h1 id = page-title class=typewriter> Lock, Stock and Snatch </h1>
+    </div>
+    <div class = 'topnav'>
+      <a href = 'rules.html'>Rules</a>
+      <a href = "javascript:resetGame(lettersList,totalTiles)">Reset Game!</a>
+    </div>
+    <div class = abovebelow>
+      <table>
+        <th colspan="28">Player 2 </th>
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+        </tr>
+        <tr>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+          <td> </td>
+        </tr>
+      </table>
+    </div>
+  <!--  <div id = player3 class = abovebelow>
+      <img src = "Player3.jpg">
+    </div>*/ -->
+
+
+    <section class='container'>
+      <div id = 'player1' class = 'box box-left'>
+        <table>
+          <th colspan="8">Player 1 </th>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </table>
+      </div>
+      <div id = 'tile-space' class = 'box tile-space'>
+        <!--<img id = 'tile1' class = 'tile' src = './tile.jpg' draggable="true">-->
+      </div>
+      <div id = 'player2' class = 'box box-right'>
+        <table>
+          <th colspan="8">Player 3 </th>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+          <tr>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+            <td> </td>
+          </tr>
+        </table>
+      </div>
+   </section>
+   <div id = player4 class= abovebelow>
+     <table>
+       <th colspan="28">Player 4 </th>
+       <tr>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+       </tr>
+       <tr>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+         <td> </td>
+       </tr>
+     </table>
+   </div>
+   <script src="../addons/socket.io-client.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+   <script type = text/javascript src = "main.js"></script>
+  </body>
+</html>

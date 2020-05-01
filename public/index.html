@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Word, Words, Words, Words, Words </title>
+
+      <link href='./landing.css' rel = 'stylesheet' type = "text/css">
+      </link>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link href='https://fonts.googleapis.com/css?family=Work+Sans' rel="stylesheet" type="text/css">
+      </link>
+  </head>
+  <body>
+    <div id ='topbar'>>
+      <h1 id = page-title class=typewriter>
+        <a href="http://www.wordswordswordswords.com">Lock, Stock and Snatch </a>
+      </h1>
+    </div>
+    <div id = 'lobby'>
+      <div id='lobby-inside'>
+        <form id='new-game' action="index.html" method="post">
+          <p class = 'intro'>
+            You can play Snatch here! <br><br>All you need to do is type in your game name below - it can be anything!
+            Once you've created a game, just send the url to your friends and they can join from their own computer.<br><br>
+            Make sure you type in one word - it's a url after all!
+          </p>
+          <input type='text' id='game-name' name='game-url' value='input game name here'>
+          <button id='submit' type='submit' onClick="location.href='index.html'"> Go </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="../addons/socket.io-client.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+    <script type = text/javascript src = "landing.js"></script>
+  </body>
+  <html>

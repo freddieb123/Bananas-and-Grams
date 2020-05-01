@@ -1,0 +1,125 @@
+
+
+body,html {
+    margin: 40px;
+    font-family: roboto, verdana,sans-serif;
+    margin: auto;
+    text-align: center;
+    padding: 10px;
+    text-overflow: hidden;
+    /*margin-right: 232px;
+    margin-left: 232px;*/
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    margin: 40px;
+    max-width: 160px;
+    text-align: center;
+    margin: auto;
+  }
+  #lobby, #lobby-inside {
+    text-align: justify;
+    padding: 0px;
+    padding-right: 15px;
+    text-overflow: hidden;
+
+  }
+}
+
+@media screen and (max-width: 2000px) {
+  body {
+    max-width: 400px;
+    text-align: center;
+    margin: auto;
+  }
+}
+
+#page-title {
+  font-size: 30px;
+  font-family: "American Typewriter";
+}
+
+#topbar {
+    padding: 1em
+}
+
+#topbar a {
+    color: #000;
+    text-decoration: none
+}
+
+h1 {
+    letter-spacing: .2em;
+    text-align: center
+}
+
+h1,h2,h3 {
+    font-family: Courier New,monospace
+}
+
+h2 {
+    font-size: 1.1em
+}
+
+
+
+#lobby {
+  text-align: justify;
+}
+
+#lobby-inside {
+  display: inline-block;
+}
+
+p.intro {
+    line-height: 1.5em;
+    margin-bottom: 3em;
+    text-align: justify;
+    display:inline-block;
+    font-family: verdana;
+    font-size: .9em;
+
+}
+
+#available-games {
+    width: 500px;
+    margin: 0 auto
+}
+
+#available-games ul {
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+#new-game {
+    margin: 0 auto 100px
+}
+
+#new-game input#game-name {
+    height: 50px;
+    width: 350px;
+    padding: 5px 5px;
+    font-size: 1.3em;
+    border: 1px solid #ddd;
+    border-right: none;
+    letter-spacing: .1em
+}
+
+#new-game button {
+    height: 62px;
+    width: 120px;
+    padding: 0px 0px;
+    background: #e1f4d0;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    vertical-align: top;
+    cursor: pointer;
+    display: inline
+  }
+
+nav {
+  font-family: "American Typewriter";
+
+}

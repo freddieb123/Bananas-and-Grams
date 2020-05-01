@@ -1,0 +1,125 @@
+#page-title {
+  text-align: center;
+  font-size: 30px;
+  font-family: "American Typewriter";
+  margin-bottom: 20px;
+  padding: 20px;
+}
+
+nav {
+  margin:20px;
+}
+
+@media screen and (max-width: 2500px) {
+  body {
+    max-width: 1500px;
+    text-align: center;
+    margin: auto;
+      }
+  #tile-space {
+    grid-template-columns: repeat(16, 1fr);
+    grid-gap: 4px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    margin: 40px;
+    max-width: 160px;
+    text-align: center;
+    margin: auto;
+  }
+  #tile-space {
+    grid-template-columns: 1fr, 1fr;
+  }
+
+}
+
+.tile {
+  position: relative;
+  text-align: center;
+  width: 34px;
+  height: 34px;
+  cursor: pointer;
+  padding:3px;
+  display: inline;
+  vertical-align: bottom;
+  margin-top: 0px;
+}
+
+nav {
+  display: block;
+}
+
+.container {
+    max-width: 2000px;
+    margin-right: 5px;;
+    margin-left: 5px;;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+#tile-space {
+  display: inline-grid;
+  margin-top:20px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.box-left{
+  float:left;
+  margin-top: 20px;
+}
+
+.box-right{
+  float:right;
+  margin-top: 20px;
+
+}
+
+.abovebelow{
+  margin:0 auto;
+  padding:0;
+  width: 60%;
+  text-align: center;
+}
+
+body {
+  line-height: 0;
+}
+
+table {
+  table-layout: fixed;
+  empty-cells: show;
+  border: 1px solid black;
+  white-space: nowrap;
+  border-collapse: collapse;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-spacing:0px;
+}
+
+td {
+  max-height: 38px;
+  table-layout: fixed;
+  width: 38px;
+  height: 38px;
+  padding: 0px;
+  margin-right: 0px;
+}
+
+th {
+  font-size: 23px;
+  font-family: "Courier New"
+}
+
+.topnav {
+  margin-bottom: 30px;
+  font-family: "American Typewriter";
+}
+
+.topnav a {
+  margin: 20px
+}
