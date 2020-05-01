@@ -20,10 +20,10 @@
         <form id='new-game' action="index.html" method="post">
           <p class = 'intro'>
             You can play Snatch here! <br><br>All you need to do is type in your game name below - it can be anything!
-            Once you've created a game, just send the url to your friends and they can join from their own computer.<br><br>
-            Make sure you type in one word - it's a url after all!
+            Once you've created a game, just send the game ID to your friends and they can join from their own computer.<br><br>
+            To join an existing game, just type in the game ID.
           </p>
-          <input type='text' id='game-name' name='game-url' value='input game name here'>
+          <input type='text' id='game-name' name='game-url' value='input game name here' onfocus="if (this.value=='input game name here') this.value='';">
           <button id='submit' type='submit'> Go </button>
         </form>
       </div>

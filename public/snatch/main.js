@@ -63,13 +63,19 @@ let draggedItem = null;
 let totalTiles = 144;
 let tiles = [];
 let seed = ['hello','goodbye','here','there','where','nothere'];
-let url = document.URL;
+let n=null;
 /*tile1.onclick = () => {
   tile1.src = flippedAPath
 }*/
 
 
-let socket = io.connect();
+let socket = io.connect('http://localhost:3000');
+let gameID = localStorage.getItem('gameID')
+console.log(gameID)
+
+//set gameID
+let gameid_location = document.getElementById('gameID');
+gameid_location.append('GAME ID:  ' + gameID)
 
 let startGame = (list,total) => {
   shuffler(list);
@@ -79,10 +85,10 @@ let startGame = (list,total) => {
 }
 
 
-let shuffler = (list) => {
-    for (let i=0;i<seed.length;i++){
-      var myrng = new Math.seedrandom(seed[i]);
-    }
+let shuffler = (list, seed=gameID) => {
+    /*for (let i=0;i<seed.length;i++){*/
+    var myrng = new Math.seedrandom(seed);
+    /*}*/
     for (let i = list.length - 1; i > 0; i--) {
         const j = Math.floor(myrng() * (i + 1));
         [list[i], list[j]] = [list[j], list[i]];
@@ -121,7 +127,7 @@ let createTiles = (totalTiles) => {
       data = {
         i: i,
         id: tiles[i].id,
-        url: url
+        gameID: gameID
       }
       socket.emit('turn',data)
       console.log('sending to server')
@@ -154,16 +160,18 @@ async function loadData(){
   const dataDrop = await response2.json();
   //load the tiles that have been turned over
   for (i=0;i<data.length;i++){
-    if (data[i].url === window.location.href) {
+    if (data[i].gameID === gameID) {
       let id = data[i].id
       target_tile = document.getElementById(id);
-      console.log(window.location.href)
+      console.log(target_tile);
+      console.log(typeof list);
       target_tile.src = lettersList[data[i].i]
       }
     }
   //load the tiles that have been dragged to a player's boxes
   for (k=0;k<dataDrop.length;k++) {
-    if (data[k].url === window.location.href) {
+    console.log(dataDrop)
+    if (data[k].gameID === gameID) {
       let box = boxes[dataDrop[k].location];
       let draggedtile = document.getElementById(dataDrop[k].id)
       box.append(draggedtile);
@@ -188,7 +196,7 @@ for (let j =0; j<boxes.length;j++) {
       let dataDrop = {
         id: draggedItem.id,
         location: j,
-        url: document.URL
+        gameID: gameID
       }
       socket.emit('drop', dataDrop)
       console.log('sending to server')
@@ -205,26 +213,33 @@ socket.on('turn', newDrawing);
   socket.on('turn', newDrawing);
 }*/
 function newDrawing(data) {
-  console.log('draw');
+  console.log(data);
   let target_tile = document.getElementById(data.id);
   console.log(target_tile);
   target_tile.src = lettersList[data.i]
 }
 
-let resetGame = (list,total) => {
+let resetGame = (lettersList,totalTiles) => {
   for (let p = 0; p< totalTiles; p++) {
     let id = 'tile'+(p+1);
     image = document.getElementById(id);
     image.parentNode.removeChild(image)
   }
   game_id = {
-    url: document.URL
+    gameID: gameID
   }
   socket.emit('reset', game_id)
-  shuffler(list);
-  createTiles(total);
+  shuffler(lettersList,gameID);
+  createTiles(totalTiles);
   console.log('reset')
-
+  n = null;
 }
 
-startGame(lettersList,totalTiles)
+//count session number
+window.onload = function(event) {
+    shuffler(lettersList, gameID);
+    createDivs(totalTiles);
+    createTiles(totalTiles);
+    loadData();
+
+};

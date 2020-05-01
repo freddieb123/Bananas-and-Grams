@@ -1,11 +1,11 @@
-let socket = io.connect();
+let socket = io.connect('http://localhost:3000');
 console.log(socket);
 
 var x = document.getElementById("submit").onclick = function(e) {
   e.preventDefault();
-  let newurl = '/' + document.getElementById('game-name').value
+  let gameID = document.getElementById('game-name').value
+  localStorage.setItem('gameID',gameID);
   console.log('redirect');
-  console.log(newurl);
   /*window.location.assign(newurl);*/
   window.location.assign('/snatch/index.html')
 }

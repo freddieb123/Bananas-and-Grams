@@ -73,10 +73,10 @@ function newConnection(socket) {
   }
 
   function reSet(game_id) {
-    console.log('function')
-    database.remove({ url: game_id.url  }, { multi: true }, function (err, numRemoved) {
+    console.log(game_id.gameID)
+    database.remove({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
     });
-    databaseDropped.remove({ url: game_id.url  }, { multi: true }, function (err, numRemoved) {
+    databaseDropped.remove({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
     });
   };
 }
