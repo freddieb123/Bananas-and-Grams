@@ -1,4 +1,4 @@
-let socket = io.connect('http://localhost:3000');
+let socket = io.connect(document.URL);
 console.log(socket);
 
 var x = document.getElementById("submit").onclick = function(e) {
