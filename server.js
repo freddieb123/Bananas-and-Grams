@@ -14,7 +14,10 @@ databaseDropped.loadDatabase();
 let app = express();
 
 //get app to listen on port 3000
-let server = app.listen(3000)
+const port = process.env.PORT || 3000;
+let server = app.listen(port, () => {
+  console.log('Starting server on port: ' + port)
+});
 
 //give files to node
 app.use(express.static('public'));
