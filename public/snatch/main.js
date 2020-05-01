@@ -123,8 +123,8 @@ let createTiles = (totalTiles) => {
     tiles[i] = img
 
     tiles[i].addEventListener('click', clickable);
-    tiles[i].addEventListener("touchend", dragender, false);
-    tiles[i].addEventListener("touchstart", dragstarter, false);
+    /*tiles[i].addEventListener("touchend", dragender, false);
+    tiles[i].addEventListener("touchstart", dragstarter, false);*/
 
     function clickable() {
       tiles[i].src = lettersList[i]
