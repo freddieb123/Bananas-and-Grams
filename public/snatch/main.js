@@ -70,6 +70,7 @@ let n=null;
 
 
 let socket = io.connect();
+console.log(socket)
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
 
@@ -234,8 +235,8 @@ for (let j =0; j<boxes.length;j++) {
       }
       socket.emit('drop', dataDrop)
     }
-  }
-}
+  };
+};
 
 
 
