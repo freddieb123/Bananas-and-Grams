@@ -1,7 +1,7 @@
 const {MongoClient} = require('mongodb');
 
 async function getDataOver() {
-  const uri = 'mongodb://freddieb123:PuraVida1%21@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+  const uri = 'mongodb://freddieb1234:123456a@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
@@ -17,7 +17,7 @@ async function getDataOver() {
 };
 
 async function getDataDropOver() {
-  const uri = 'mongodb://freddieb123:PuraVida1%21@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+  const uri = 'mongodb://freddieb1234:123456a@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
@@ -52,7 +52,7 @@ async function getDataDrop(client) {
 };
 
 async function dataInsert(data) {
-  const uri = 'mongodb://freddieb123:PuraVida1%21@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+  const uri = 'mongodb://freddieb1234:123456a@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
@@ -66,7 +66,7 @@ async function dataInsert(data) {
 }
 
 async function dataDropInsert(dataDrop) {
-  const uri = 'mongodb://freddieb123:PuraVida1%21@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+  const uri = 'mongodb://freddieb1234:123456a@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
