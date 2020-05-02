@@ -1,7 +1,7 @@
 const {MongoClient} = require('mongodb');
 
 async function getDataOver() {
-  const uri = 'mongodb+srv://freddieb123:PuraVida1!@cluster0-xel0y.mongodb.net/test?retryWrites=true&w=majority';
+  const uri = 'mongodb://freddieb123:PuraVida1!@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
