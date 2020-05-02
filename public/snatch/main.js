@@ -58,7 +58,7 @@ let lettersZ=Array(2).fill(flippedZPath);
 let lettersList = lettersA.concat(lettersB, lettersC, lettersD, lettersE, lettersF, lettersG, lettersH, lettersI, lettersJ, lettersK, lettersL, lettersM, lettersN, lettersO, lettersP, lettersQ, lettersR, lettersS, lettersT, lettersU, lettersV, lettersW, lettersX, lettersY, lettersZ);
 /*let playerBoxes = document.querySelectorAll('.abovebelow, .box-left, .box-right');*/
 let boxes = document.querySelectorAll('td');
-let grids = document.querySelectorAll('.box');
+
 let draggedItem = null;
 let totalTiles = 144;
 let tiles = [];
@@ -69,7 +69,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect();
+let socket = io.connect('http://localhost:3000');
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
 
@@ -102,11 +102,34 @@ let createDivs = (totalTiles) => {
     //create the divs for Grid
     let div = document.createElement('div');
     div.id = 'div'+(i+1);
-    div.class = 'box';
-    currentDiv = document.getElementById('tile-space')
+    div.class = 'grid';
+    currentDiv = document.getElementById('tile-space');
     currentDiv.appendChild(div)
-}
-}
+
+    div.addEventListener('dragover', function(e) {
+        e.preventDefault();
+    })
+    div.addEventListener('dragenter', function(e) {
+        e.preventDefault();
+    })
+    div.addEventListener('drop', dropper_mid);
+    div.addEventListener('touchend', dropper_mid);
+
+    function dropper_mid() {
+      if (div.innerHTML == '') {
+        console.log('back to middle')
+        div.append(draggedItem);
+        let dataDrop = {
+          id: draggedItem.id,
+          location: n,
+          gameID: gameID
+        }
+        socket.emit('drop', dataDrop)
+      };
+    };
+  };
+
+};
 
 let createTiles = (totalTiles) => {
   for (let i = 0; i< totalTiles; i++) {
@@ -171,8 +194,6 @@ async function loadData(){
     if (data[i].gameID === gameID) {
       let id = data[i].id
       target_tile = document.getElementById(id);
-      console.log(target_tile);
-      console.log(typeof list);
       target_tile.src = lettersList[data[i].i]
       }
     }
@@ -199,10 +220,9 @@ for (let j =0; j<boxes.length;j++) {
   box.addEventListener('drop', dropper);
   box.addEventListener('touchend', dropper);
 
-
   function dropper() {
-    if (box.innerHTML == ' ' && draggedItem.src.includes('Tile.jpg') === false) {
-      console.log(draggedItem.src)
+    console.log(box)
+    if (box.innerHTML === ' ' && draggedItem.src.includes('Tile.jpg') === false) {
       box.append(draggedItem);
       let dataDrop = {
         id: draggedItem.id,
@@ -213,6 +233,8 @@ for (let j =0; j<boxes.length;j++) {
     }
   }
 }
+
+
 
 
 socket.on('turn', newDrawing);
@@ -228,6 +250,8 @@ function newDrawing(data) {
   console.log(target_tile);
   target_tile.src = lettersList[data.i]
 }
+
+
 /*
 let resetGame = (lettersList,totalTiles) => {
   for (let p = 0; p< totalTiles; p++) {
