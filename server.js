@@ -11,7 +11,7 @@ databaseDropped.loadDatabase();
 
 
 //create app with express function
-let app = express();
+let app = express('http://localhost:3000');
 
 //get app to listen on port 3000
 const port = process.env.PORT || 3000;
