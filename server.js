@@ -1,12 +1,95 @@
+const {MongoClient} = require('mongodb');
+
+async function getDataOver() {
+  const uri = 'mongodb+srv://freddieb123:PuraVida1!@cluster0-xel0y.mongodb.net/test?retryWrites=true&w=majority';
+  const client = new MongoClient(uri,{ useUnifiedTopology: true });
+  try {
+    await client.connect();
+// async functions go here
+    let data = await getData(client);
+    return data;
+    console.log('success');
+  } catch (e) {
+    console.log(e);
+  } finally {
+    await client.close();
+  };
+};
+
+async function getDataDropOver() {
+  const uri = 'mongodb+srv://freddieb123:PuraVida1!@cluster0-xel0y.mongodb.net/test?retryWrites=true&w=majority';
+  const client = new MongoClient(uri,{ useUnifiedTopology: true });
+  try {
+    await client.connect();
+// async functions go here
+    let dataDrop = await getDataDrop(client).catch(console.log);
+    return dataDrop;
+  } catch (e) {
+    console.log(e);
+  } finally {
+    await client.close();
+  }
+}
+
+async function getData(client) {
+  try {
+  const result = await client.db('database').collection("database").find({}).toArray();
+  return result
+} catch(e) {
+  console.log(e);
+} finally {
+}
+};
+
+async function getDataDrop(client) {
+  try {
+  const result = await client.db('database').collection("databaseDropped").find({}).toArray();;
+  return result
+} catch(e) {
+  console.log(e);
+} finally {
+}
+};
+
+async function dataInsert(data) {
+  const uri = 'mongodb+srv://freddieb123:PuraVida1!@cluster0-xel0y.mongodb.net/test?retryWrites=true&w=majority';
+  const client = new MongoClient(uri,{ useUnifiedTopology: true });
+  try {
+    await client.connect();
+// async functions go here
+    await client.db('database').collection("database").insertOne(data);
+  } catch (e) {
+    console.log(e);
+  } finally {
+    await client.close();
+  }
+}
+
+async function dataDropInsert(dataDrop) {
+  const uri = 'mongodb+srv://freddieb123:PuraVida1!@cluster0-xel0y.mongodb.net/test?retryWrites=true&w=majority';
+  const client = new MongoClient(uri,{ useUnifiedTopology: true });
+  try {
+    await client.connect();
+// async functions go here
+    await client.db('database').collection("databaseDropped").insertOne(dataDrop);
+  } catch (e) {
+    console.log(e);
+  } finally {
+    await client.close();
+  }
+}
+
+
+
 let express = require('express');
-const Datastore = require('nedb');
+/*const Datastore = require('nedb');
 
 const database = new Datastore('database.db');
 const databaseDropped = new Datastore('databaseDropped.db');
 
 
 database.loadDatabase();
-databaseDropped.loadDatabase();
+databaseDropped.loadDatabase();*/
 
 
 
@@ -30,53 +113,43 @@ let io = socket(server);
 
 io.sockets.on('connection', newConnection)
 
-app.get('/api', (request, response) => {
-  database.find({},(err,data) => {
-    if (err) {
-      response.end();
-      return;
-    }
-    response.json(data);
+app.get('/api', async (request, response) => {
+  console.log('getting data')
+  let data = await getDataOver();
+  console.log(data)
+  response.json(data);
+});
 
-  })
-})
-
-app.get('/dragged', (request, response) => {
-  databaseDropped.find({},(err,dataDrop) => {
-    if (err) {
-      response.end();
-      return;
-    }
-    response.json(dataDrop);
-
-  })
-})
+app.get('/dragged', async (request, response) => {
+  let dataDrop = await getDataDropOver();
+  response.json(dataDrop);
+});
 
 function newConnection(socket) {
   console.log('new connection'+ socket.id );
   socket.on('turn', turnTile);
   socket.on('turn', saveData);
   socket.on('drop', saveDataDropped);
-  socket.on('reset', reSet);
+  /*socket.on('reset', reSet);*/
 
 
   function turnTile(data) {
     socket.broadcast.emit('turn',data);
-  }
+  };
 
   function saveData(data) {
-    database.insert(data);
-  }
+    dataInsert(data);
+  };
 
   function saveDataDropped(dataDrop) {
-    databaseDropped.insert(dataDrop);
-  }
-
+    dataDropInsert(dataDrop);
+  };
+/*
   function reSet(game_id) {
     console.log(game_id.gameID)
     database.remove({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
     });
     databaseDropped.remove({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
     });
-  };
+  };*/
 }
