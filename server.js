@@ -1,12 +1,32 @@
 let express = require('express');
-const Datastore = require('nedb');
+var Mongodb = require('mongodb');
+var url = "mongodb://localhost:27017/";
 
-const database = new Datastore('database.db');
-const databaseDropped = new Datastore('databaseDropped.db');
+Mongodb.MongoClient.connect(url, function(err, db) {
+  if (err) throw err;
+  let dbo = db.db("database");
+  var myobj = { name: "Company Inc", address: "Highway 37" };
+  dbo.collection("database").insertOne(myobj, function(err, res)  {
+    if (err) throw err;
+    console.log("Collection created!");
+    db.close();
+  });
+  dbo.collection("databaseDropped").insertOne(myobj, function(err, res)  {
+    if (err) throw err;
+    console.log("Collection created!");
+    db.close();
+  });
+});
+
+
+
+/*
+const database = new MongoClient('database.db');
+const databaseDropped = new MongoClient('databaseDropped.db');
 
 
 database.loadDatabase();
-databaseDropped.loadDatabase();
+databaseDropped.loadDatabase();*/
 
 
 
@@ -31,7 +51,10 @@ let io = socket(server);
 io.sockets.on('connection', newConnection)
 
 app.get('/api', (request, response) => {
-  database.find({},(err,data) => {
+  Mongodb.MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    let dbo = db.db("database");
+  dbo.collection("database").find({},(err,data) => {
     if (err) {
       response.end();
       return;
@@ -39,10 +62,14 @@ app.get('/api', (request, response) => {
     response.json(data);
 
   })
-})
+ })
+});
 
 app.get('/dragged', (request, response) => {
-  databaseDropped.find({},(err,dataDrop) => {
+  Mongodb.MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    let dbo = db.db("database");
+  dbo.collection("databaseDropped").find({},(err,dataDrop) => {
     if (err) {
       response.end();
       return;
@@ -51,6 +78,7 @@ app.get('/dragged', (request, response) => {
 
   })
 })
+});
 
 function newConnection(socket) {
   console.log('new connection'+ socket.id );
@@ -65,18 +93,39 @@ function newConnection(socket) {
   }
 
   function saveData(data) {
-    database.insert(data);
-  }
+    Mongodb.MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      let dbo = db.db("database");
+    dbo.collection("database").insertOne(data , function(err, res)  {
+      if (err) throw err;
+      console.log("Row created!");
+      db.close();
+    });
+  });
+ };
+
 
   function saveDataDropped(dataDrop) {
-    databaseDropped.insert(dataDrop);
-  }
+    Mongodb.MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      let dbo = db.db("database");
+    dbo.collection("databaseDropped").insertOne(dataDrop, function(err, res)  {
+      if (err) throw err;
+      console.log("Row created!");
+      db.close();
+    });
+  });
+};
 
   function reSet(game_id) {
     console.log(game_id.gameID)
-    database.remove({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
+    Mongodb.MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      let dbo = db.db("database");
+    dbo.collection("database").deleteMany({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
     });
-    databaseDropped.remove({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
+    dbo.collection("databaseDropped").deleteManyc({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
     });
-  };
-}
+  });
+};
+};

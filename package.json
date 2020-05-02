@@ -10,7 +10,9 @@
   "author": "fred",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "mongodb": "^3.5.7",
     "mysql": "^2.18.1",
     "nedb": "^1.8.0",
     "nodemon": "^2.0.3",
