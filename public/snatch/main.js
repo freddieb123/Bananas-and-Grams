@@ -69,7 +69,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect();
+let socket = io.connect('http://localhost:3000');
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
 
@@ -192,6 +192,7 @@ async function loadData(){
   //load the tiles that have been turned over
   for (i=0;i<data.length;i++){
     if (data[i].gameID === gameID) {
+      console.log(gameID);
       let id = data[i].id
       target_tile = document.getElementById(id);
       target_tile.src = lettersList[data[i].i]
@@ -199,7 +200,8 @@ async function loadData(){
     }
   //load the tiles that have been dragged to a player's boxes
   for (k=0;k<dataDrop.length;k++) {
-    if (data[k].gameID === gameID) {
+    if (dataDrop[k].gameID === gameID) {
+      console.log(dataDrop);
       let box = boxes[dataDrop[k].location];
       let draggedtile = document.getElementById(dataDrop[k].id)
       box.append(draggedtile);
