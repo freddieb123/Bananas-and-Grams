@@ -69,7 +69,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect('http://localhost:3000');
+let socket = io.connect();
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
 
@@ -189,6 +189,7 @@ async function loadData(){
   const data = await response.json();
   const response2 = await fetch('/dragged');
   const dataDrop = await response2.json();
+  console.log(data,dataDrop)
   //load the tiles that have been turned over
   for (i=0;i<data.length;i++){
     if (data[i].gameID === gameID) {
