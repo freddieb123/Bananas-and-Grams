@@ -1,83 +1,63 @@
 require('dotenv').config();
 const mongodb = require('mongodb');
 const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
-mongodb.MongoClient.connect(uri, function(err, client) {
-  if(err) throw err;
 
 
 async function getDataOver() {
-  try {
-    await client.connect();
+    mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    let data = await getData(client);
+    let data = getData(client);
     return data;
-    console.log('success');
-  } catch (e) {
-    console.log(e);
-  } finally {
-    await client.close();
-  };
+    client.close(function (err) {
+                  if(err) throw err;
+    });
+  });
 };
 
 async function getDataDropOver() {
-  try {
-    await client.connect();
 // async functions go here
-    let dataDrop = await getDataDrop(client).catch(console.log);
+  mongodb.MongoClient.connect(uri, function(err, client) {
+    let dataDrop =  getDataDrop(client).catch(console.log);
     return dataDrop;
-  } catch (e) {
-    console.log(e);
-  } finally {
-    await client.close();
-  }
+    client.close(function (err) {
+                  if(err) throw err;
+    });
+  });
 }
+
 
 async function getData(client) {
-  try {
   const result = await client.db('database').collection("database").find({}).toArray();
   return result
-} catch(e) {
-  console.log(e);
-} finally {
-}
-};
+  };
 
 async function getDataDrop(client) {
-  try {
   const result = await client.db('database').collection("databaseDropped").find({}).toArray();;
   return result
-} catch(e) {
-  console.log(e);
-} finally {
-}
-};
+ };
 
 async function dataInsert(data) {
-  try {
-    await client.connect();
+    mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    await client.db('database').collection("database").insertOne(data);
-  } catch (e) {
-    console.log(e);
-  } finally {
-    await client.close();
-  }
+    client.db('database').collection("database").insertOne(data);
+    client.close(function (err) {
+                  if(err) throw err;
+    });
+  });
 }
 
 async function dataDropInsert(dataDrop) {
-  try {
-    await client.connect();
+    mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    await client.db('database').collection("databaseDropped").insertOne(dataDrop);
-  } catch (e) {
-    console.log(e);
-  } finally {
-    await client.close();
-  }
+    client.db('database').collection("databaseDropped").insertOne(dataDrop);
+    client.close(function (err) {
+                  if(err) throw err;
+    });
+  });
+
 }
-client.close(function (err) {
-              if(err) throw err;
-});
+
+
 
 
 
@@ -151,6 +131,7 @@ function newConnection(socket) {
   function saveDataDropped(dataDrop) {
     dataDropInsert(dataDrop);
   };
+};
 /*
   function reSet(game_id) {
     console.log(game_id.gameID)
