@@ -1,8 +1,11 @@
-const {MongoClient} = require('mongodb');
+require('dotenv').config();
+const mongodb = require('mongodb');
+const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+mongodb.MongoClient.connect(uri, function(err, client) {
+  if(err) throw err;
+
 
 async function getDataOver() {
-  const uri = 'mongodb://heroku_bnwqfrc3:881k00a7dn0qv9065d0gj4lll0@ds149744.mlab.com:49744/heroku_bnwqfrc3';
-  const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
 // async functions go here
@@ -17,8 +20,6 @@ async function getDataOver() {
 };
 
 async function getDataDropOver() {
-  const uri = 'mongodb+srv://freddieb123:PuraVida1!@cluster0-xel0y.mongodb.net/test?retryWrites=true&w=majority';
-  const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
 // async functions go here
@@ -52,8 +53,6 @@ async function getDataDrop(client) {
 };
 
 async function dataInsert(data) {
-  const uri = 'mongodb+srv://freddieb123:PuraVida1!@cluster0-xel0y.mongodb.net/test?retryWrites=true&w=majority';
-  const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
 // async functions go here
@@ -66,8 +65,6 @@ async function dataInsert(data) {
 }
 
 async function dataDropInsert(dataDrop) {
-  const uri = 'mongodb+srv://freddieb123:PuraVida1!@cluster0-xel0y.mongodb.net/test?retryWrites=true&w=majority';
-  const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect();
 // async functions go here
@@ -78,6 +75,9 @@ async function dataDropInsert(dataDrop) {
     await client.close();
   }
 }
+client.close(function (err) {
+              if(err) throw err;
+});
 
 
 
@@ -130,11 +130,18 @@ function newConnection(socket) {
   socket.on('turn', turnTile);
   socket.on('turn', saveData);
   socket.on('drop', saveDataDropped);
+  socket.on('drop', dropTile);
+
   /*socket.on('reset', reSet);*/
 
 
   function turnTile(data) {
     socket.broadcast.emit('turn',data);
+  };
+
+  function dropTile(dataDrop) {
+    console.log(dataDrop)
+    socket.broadcast.emit('drop',dataDrop);
   };
 
   function saveData(data) {
@@ -152,4 +159,3 @@ function newConnection(socket) {
     databaseDropped.remove({ gameID: game_id.gameID  }, { multi: true }, function (err, numRemoved) {
     });
   };*/
-}
