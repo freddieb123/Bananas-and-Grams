@@ -58,6 +58,7 @@ let lettersZ=Array(2).fill(flippedZPath);
 let lettersList = lettersA.concat(lettersB, lettersC, lettersD, lettersE, lettersF, lettersG, lettersH, lettersI, lettersJ, lettersK, lettersL, lettersM, lettersN, lettersO, lettersP, lettersQ, lettersR, lettersS, lettersT, lettersU, lettersV, lettersW, lettersX, lettersY, lettersZ);
 /*let playerBoxes = document.querySelectorAll('.abovebelow, .box-left, .box-right');*/
 let boxes = document.querySelectorAll('td');
+console.log(boxes)
 
 let draggedItem = null;
 let totalTiles = 144;
@@ -69,7 +70,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect();
+let socket = io.connect('http://localhost:3000');
 console.log(socket)
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
@@ -122,9 +123,10 @@ let createDivs = (totalTiles) => {
         div.append(draggedItem);
         let dataDrop = {
           id: draggedItem.id,
-          location: n,
+          location: i,
           gameID: gameID
         }
+        console.log(dataDrop)
         socket.emit('drop', dataDrop)
       };
     };
@@ -168,6 +170,7 @@ let createTiles = (totalTiles) => {
       setTimeout(function() {
         tiles[i].style.display='none';
       },0);
+      return draggedItem
     };
 
     tiles[i].addEventListener('dragend', dragender);
@@ -203,7 +206,6 @@ async function loadData(){
   //load the tiles that have been dragged to a player's boxes
   for (k=0;k<dataDrop.length;k++) {
     if (dataDrop[k].gameID === gameID) {
-      console.log(dataDrop);
       let box = boxes[dataDrop[k].location];
       let draggedtile = document.getElementById(dataDrop[k].id)
       box.append(draggedtile);
@@ -213,35 +215,40 @@ async function loadData(){
 
 
 // add listeners for dragging the tiles and dropping them
-for (let j =0; j<boxes.length;j++) {
-  const box = boxes[j];
-  box.addEventListener('dragover', function(e) {
-    e.preventDefault();
-  })
-  box.addEventListener('dragenter', function(e) {
-    e.preventDefault();
-  })
-  box.addEventListener('drop', dropper);
-  box.addEventListener('touchend', dropper);
+async function createListeners(tiles,boxes) {
+    console.log('creatinglisteners')
+  for (let j =0; j<boxes.length;j++) {
+    const box = boxes[j];
+    box.addEventListener('dragover', function(e) {
+      e.preventDefault();
+    })
+    box.addEventListener('dragenter', function(e) {
+      e.preventDefault();
+    })
+    box.addEventListener('drop', dropper);
+    box.addEventListener('touchend', dropper);
 
-  function dropper() {
-    console.log(box)
-    if (box.innerHTML === ' ' && draggedItem.src.includes('Tile.jpg') === false) {
-      box.append(draggedItem);
-      let dataDrop = {
-        id: draggedItem.id,
-        location: j,
-        gameID: gameID
-      }
-      socket.emit('drop', dataDrop)
-    }
+    function dropper() {
+        if (box.innerHTML === ' ' && draggedItem.src.includes('Tile.jpg') === false) {
+          box.append(draggedItem);
+          let dataDrop = {
+            id: draggedItem.id,
+            location: box.id,
+            gameID: gameID
+          }
+          console.log(dataDrop)
+          socket.emit('drop', dataDrop)
+         }
+    };
   };
-};
+  };
 
 
 
 
 socket.on('turn', newDrawing);
+socket.on('drop', newDrawingDrop);
+
 
 /*function setup() {
             socket = io.connect('http://localhost:3000');
@@ -254,6 +261,15 @@ function newDrawing(data) {
   console.log(target_tile);
   target_tile.src = lettersList[data.i]
 }
+
+
+function newDrawingDrop(dataDrop) {
+  console.log(dataDrop)
+  let target_tile = document.getElementById(dataDrop.id);
+  let box = document.getElementById(dataDrop.location)
+  box.append(target_tile);
+};
+
 
 
 /*
@@ -278,6 +294,7 @@ window.onload = function(event) {
     shuffler(lettersList, gameID);
     createDivs(totalTiles);
     createTiles(totalTiles);
+    createListeners(tiles,boxes);
     loadData();
 
 };

@@ -1,10 +1,15 @@
-const {MongoClient} = require('mongodb');
+require('dotenv').config();
+const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+mongodb.MongoClient.connect(uri)
 
 async function getDataOver() {
-  const uri = 'mongodb://freddieb1234:123456a@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+  const mongodb = require('mongodb');
+
+  const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
-    await client.connect();
+    mongodb.MongoClient.connect(uri)
+    /*await client.connect();*/
 // async functions go here
     let data = await getData(client);
     return data;
@@ -17,10 +22,12 @@ async function getDataOver() {
 };
 
 async function getDataDropOver() {
-  const uri = 'mongodb://freddieb1234:123456a@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+  const {MongoClient} = require('mongodb');
+
+  const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
-    await client.connect();
+    await client.connect(process.env.MONGOLAB_URI);
 // async functions go here
     let dataDrop = await getDataDrop(client).catch(console.log);
     return dataDrop;
@@ -52,10 +59,12 @@ async function getDataDrop(client) {
 };
 
 async function dataInsert(data) {
-  const uri = 'mongodb://freddieb1234:123456a@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+  const {MongoClient} = require('mongodb');
+
+  const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
-    await client.connect();
+    await client.connect(process.env.MONGOLAB_URI);
 // async functions go here
     await client.db('database').collection("database").insertOne(data);
   } catch (e) {
@@ -66,10 +75,12 @@ async function dataInsert(data) {
 }
 
 async function dataDropInsert(dataDrop) {
-  const uri = 'mongodb://freddieb1234:123456a@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+  const {MongoClient} = require('mongodb');
+
+  const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
-    await client.connect();
+    await client.connect(process.env.MONGOLAB_URI);
 // async functions go here
     await client.db('database').collection("databaseDropped").insertOne(dataDrop);
   } catch (e) {
@@ -130,11 +141,18 @@ function newConnection(socket) {
   socket.on('turn', turnTile);
   socket.on('turn', saveData);
   socket.on('drop', saveDataDropped);
+  socket.on('drop', dropTile);
+
   /*socket.on('reset', reSet);*/
 
 
   function turnTile(data) {
     socket.broadcast.emit('turn',data);
+  };
+
+  function dropTile(dataDrop) {
+    console.log(dataDrop)
+    socket.broadcast.emit('drop',dataDrop);
   };
 
   function saveData(data) {
