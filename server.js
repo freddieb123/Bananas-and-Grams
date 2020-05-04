@@ -1,12 +1,15 @@
 require('dotenv').config();
 const mongodb = require('mongodb');
 const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+let data=[];
+let dataDrop=[];
 
 
 async function getDataOver() {
-    mongodb.MongoClient.connect(uri, function(err, client) {
+    mongodb.MongoClient.connect(uri, async function(err, client) {
 // async functions go here
-    let data = getData(client);
+    let data = await client.db('heroku_bnwqfrc3').collection("database").find({}).toArray();
+    console.log(data)
     return data;
     client.close(function (err) {
                   if(err) throw err;
@@ -16,8 +19,8 @@ async function getDataOver() {
 
 async function getDataDropOver() {
 // async functions go here
-  mongodb.MongoClient.connect(uri, function(err, client) {
-    let dataDrop =  getDataDrop(client).catch(console.log);
+  mongodb.MongoClient.connect(uri, async function(err, client) {
+    let dataDrop =  await client.db('heroku_bnwqfrc3').collection("databaseDropped").find({}).toArray();
     return dataDrop;
     client.close(function (err) {
                   if(err) throw err;
@@ -25,21 +28,22 @@ async function getDataDropOver() {
   });
 }
 
-
+/*
 async function getData(client) {
-  const result = await client.db('database').collection("database").find({}).toArray();
-  return result
+  const data_returned = await client.db('heroku_bnwqfrc3').collection("database").find({}).toArray();
+  return data_returned
   };
 
 async function getDataDrop(client) {
-  const result = await client.db('database').collection("databaseDropped").find({}).toArray();;
-  return result
+  const dataDropped_returned = await client.db('heroku_bnwqfrc3').collection("databaseDropped").find({}).toArray();;
+  return dataDropped_returned
  };
+ */
 
 async function dataInsert(data) {
     mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    client.db('database').collection("database").insertOne(data);
+    client.db('heroku_bnwqfrc3').collection("database").insertOne(data);
     client.close(function (err) {
                   if(err) throw err;
     });
@@ -49,7 +53,7 @@ async function dataInsert(data) {
 async function dataDropInsert(dataDrop) {
     mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    client.db('database').collection("databaseDropped").insertOne(dataDrop);
+    client.db('heroku_bnwqfrc3').collection("databaseDropped").insertOne(dataDrop);
     client.close(function (err) {
                   if(err) throw err;
     });
@@ -93,15 +97,14 @@ let io = socket(server);
 
 io.sockets.on('connection', newConnection)
 
-app.get('/api', async (request, response) => {
+app.get('/api', (request, response) => {
   console.log('getting data')
-  let data = await getDataOver();
-  console.log(data)
+  let data = getDataOver();
   response.json(data);
 });
 
-app.get('/dragged', async (request, response) => {
-  let dataDrop = await getDataDropOver();
+app.get('/dragged', (request, response) => {
+  let dataDrop = getDataDropOver();
   response.json(dataDrop);
 });
 
@@ -111,6 +114,8 @@ function newConnection(socket) {
   socket.on('turn', saveData);
   socket.on('drop', saveDataDropped);
   socket.on('drop', dropTile);
+  socket.on('getdatamess', getData);
+  socket.on('getdataDropmess', getDataDrop);
 
   /*socket.on('reset', reSet);*/
 
@@ -131,6 +136,19 @@ function newConnection(socket) {
   function saveDataDropped(dataDrop) {
     dataDropInsert(dataDrop);
   };
+
+  async function getData() {
+    let data = await getDataOver();
+    console.log(data)
+
+    socket.broadcast.emit('gotdata',data);
+
+  };
+
+  async function getDataDrop() {
+    let dataDrop = await getDataDropOver();
+    socket.broadcast.emit('gotdataDrop',dataDrop);
+};
 };
 /*
   function reSet(game_id) {

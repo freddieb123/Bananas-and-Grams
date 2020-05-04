@@ -185,11 +185,27 @@ let createTiles = (totalTiles) => {
 }
 
 async function loadData(){
+  socket.emit('getdatamess');
+  socket.emit('getdataDropmess');
+  await socket.on('alldata',getalldata);
+  await socket.on('alldataDrop',getalldataDrop);
+
+  function getalldata(data) {
+    let gotalldata = data
+    return gotalldata
+  }
+
+  function getalldataDrop(dataDrop) {
+    let gotalldataDrop = dataDrop
+    return gotalldataDrop
+  }
+
+  /*
   const response = await fetch('/api');
   const data = await response.json();
   const response2 = await fetch('/dragged');
-  const dataDrop = await response2.json();
-  console.log(data,dataDrop)
+  const dataDrop = await response2.json();*/
+  console.log(gotalldata,gotalldataDrop)
   //load the tiles that have been turned over
   for (i=0;i<data.length;i++){
     if (data[i].gameID === gameID) {
