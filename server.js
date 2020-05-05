@@ -1,17 +1,5 @@
 require('dotenv').config();
-<<<<<<< HEAD
-const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
-mongodb.MongoClient.connect(uri)
 
-async function getDataOver() {
-  const mongodb = require('mongodb');
-
-  const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
-  const client = new MongoClient(uri,{ useUnifiedTopology: true });
-  try {
-    mongodb.MongoClient.connect(uri)
-    /*await client.connect();*/
-=======
 const mongodb = require('mongodb');
 const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
 
@@ -21,7 +9,6 @@ async function getDataOver() {
   let data,client
   try{
     client = await mongodb.MongoClient.connect(uri);/*, async function(err, client) {*/
->>>>>>> mongodbfull
 // async functions go here
     db = client.db('heroku_bnwqfrc3');
     let dbcollection = await db.collection('database')
@@ -33,15 +20,6 @@ async function getDataOver() {
 };
 
 async function getDataDropOver() {
-<<<<<<< HEAD
-  const {MongoClient} = require('mongodb');
-
-  const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
-  const client = new MongoClient(uri,{ useUnifiedTopology: true });
-  try {
-    await client.connect(process.env.MONGOLAB_URI);
-=======
->>>>>>> mongodbfull
 // async functions go here
   let dataDrop, client
   try{
@@ -68,16 +46,8 @@ async function getDataDrop(client) {
  */
 
 async function dataInsert(data) {
-<<<<<<< HEAD
-  const {MongoClient} = require('mongodb');
 
-  const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
-  const client = new MongoClient(uri,{ useUnifiedTopology: true });
-  try {
-    await client.connect(process.env.MONGOLAB_URI);
-=======
     mongodb.MongoClient.connect(uri, function(err, client) {
->>>>>>> mongodbfull
 // async functions go here
     client.db('heroku_bnwqfrc3').collection("database").insertOne(data);
     client.close(function (err) {
@@ -87,16 +57,12 @@ async function dataInsert(data) {
 }
 
 async function dataDropInsert(dataDrop) {
-<<<<<<< HEAD
   const {MongoClient} = require('mongodb');
-
   const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
   const client = new MongoClient(uri,{ useUnifiedTopology: true });
   try {
     await client.connect(process.env.MONGOLAB_URI);
-=======
     mongodb.MongoClient.connect(uri, function(err, client) {
->>>>>>> mongodbfull
 // async functions go here
     client.db('heroku_bnwqfrc3').collection("databaseDropped").insertOne(dataDrop);
     client.close(function (err) {
@@ -176,11 +142,8 @@ async function newConnection(socket) {
   socket.on('turn', saveData);
   socket.on('drop', saveDataDropped);
   socket.on('drop', dropTile);
-<<<<<<< HEAD
-=======
   socket.on('getdatamess', getData);
   socket.on('getdataDropmess', getDataDrop);
->>>>>>> mongodbfull
 
   /*socket.on('reset', reSet);*/
 
