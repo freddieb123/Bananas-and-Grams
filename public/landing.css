@@ -63,7 +63,9 @@ h2 {
     font-size: 1.1em
 }
 
-
+#arrow {
+  text-align: left;
+}
 
 #lobby {
   text-align: justify;
