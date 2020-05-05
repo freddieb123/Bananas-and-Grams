@@ -47,7 +47,7 @@ async function getDataDrop(client) {
 
 async function dataInsert(data) {
 
-    mongodb.MongoClient.connect(uri, function(err, client) {
+    const client = mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
     client.db('heroku_bnwqfrc3').collection("database").insertOne(data);
     client.close(function (err) {
@@ -57,20 +57,16 @@ async function dataInsert(data) {
 }
 
 async function dataDropInsert(dataDrop) {
-  const {MongoClient} = require('mongodb');
-  const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
-  const client = new MongoClient(uri,{ useUnifiedTopology: true });
-  try {
-    await client.connect(process.env.MONGOLAB_URI);
-    mongodb.MongoClient.connect(uri, function(err, client) {
+  const client = mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
     client.db('heroku_bnwqfrc3').collection("databaseDropped").insertOne(dataDrop);
     client.close(function (err) {
                   if(err) throw err;
     });
   });
-
 }
+
+
 
 
 

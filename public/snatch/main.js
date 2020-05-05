@@ -277,11 +277,8 @@ async function createListeners(tiles,boxes) {
          }
     };
   };
-<<<<<<< HEAD
   };
-=======
-};
->>>>>>> mongodbfull
+
 
 
 
