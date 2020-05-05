@@ -20,11 +20,12 @@ body,html {
   }
   #lobby, #lobby-inside {
     text-align: justify;
-    padding: 0px;
+    padding: 10px;
     padding-right: 15px;
     text-overflow: hidden;
 
   }
+
 }
 
 @media screen and (max-width: 2000px) {
@@ -97,6 +98,8 @@ p.intro {
     margin: 0 auto 100px
 }
 
+
+
 #new-game input#game-name {
     height: 40px;
     width: 250px;
@@ -121,4 +124,8 @@ p.intro {
 nav {
   font-family: "American Typewriter";
 
+}
+.topnav {
+  margin-bottom: 30px;
+  font-family: "American Typewriter";
 }
