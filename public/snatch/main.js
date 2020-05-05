@@ -70,7 +70,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect();
+let socket = io.connect('http://localhost:3000');
 console.log(socket)
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
@@ -302,6 +302,7 @@ function newDrawing(data) {
 };
 
 function newDrawingDrop(dataDrop) {
+  console.log(dataDrop)
   if (dataDrop.gameID === gameID){
   console.log(document.getElementById(dataDrop.location));
   let target_tile = document.getElementById(dataDrop.id);

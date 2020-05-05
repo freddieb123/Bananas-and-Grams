@@ -16,7 +16,7 @@ async function getDataOver() {
     return result.toArray();
   }
   catch (err){ console.error(err);}
-  finally {client.close();}
+  finally {setTimeout(function() {client.close()},1000);}
 };
 
 async function getDataDropOver() {
@@ -30,7 +30,7 @@ async function getDataDropOver() {
     return result.toArray();
   }
   catch (err) {console.error(err);}
-  finally {client.close();}
+  finally {setTimeout(function(){client.close()},1000);}
 };
 
 /*
