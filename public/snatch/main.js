@@ -302,7 +302,7 @@ function newDrawing(data) {
 };
 
 function newDrawingDrop(dataDrop) {
-  if (data.gameID === gameID){
+  if (dataDrop.gameID === gameID){
   console.log(document.getElementById(dataDrop.location));
   let target_tile = document.getElementById(dataDrop.id);
   let box = document.getElementById(dataDrop.location)
@@ -310,13 +310,13 @@ function newDrawingDrop(dataDrop) {
 }
 };
 
-
+/*
 function newDrawingDrop(dataDrop) {
   console.log(dataDrop)
   let target_tile = document.getElementById(dataDrop.id);
   let box = document.getElementById(dataDrop.location)
   box.append(target_tile);
-};
+};*/
 
 
 
