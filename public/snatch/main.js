@@ -72,6 +72,8 @@ let n=null;
 let socket = io.connect();
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
+let gotalldata;
+let gotalldataDrop;
 
 //set gameID
 let gameid_location = document.getElementById('gameID');
@@ -187,26 +189,44 @@ let createTiles = (totalTiles) => {
 async function loadData(){
   socket.emit('getdatamess');
   socket.emit('getdataDropmess');
-  await socket.on('alldata',getalldata);
-  await socket.on('alldataDrop',getalldataDrop);
+  };
 
-  function getalldata(data) {
-    let gotalldata = data
-    return gotalldata
+socket.on('gotdata', function(data) {
+    for (i=0;i<data.length;i++){
+      if (data[i].gameID === gameID) {
+        let id = data[i].id
+        target_tile = document.getElementById(id);
+        target_tile.src = lettersList[data[i].i]
+        }
+      }
+  });
+socket.on('gotdataDrop', function(dataDrop) {
+    for (k=0;k<dataDrop.length;k++) {
+      if (dataDrop[k].gameID === gameID) {
+        let box = document.getElementById(dataDrop[k].location);
+        let draggedtile = document.getElementById(dataDrop[k].id)
+        box.append(draggedtile);
+    }
+  }
+});
+/*
+  let data = function getAllData(data) {
+    console.log(data)
+    return data
   }
 
-  function getalldataDrop(dataDrop) {
-    let gotalldataDrop = dataDrop
-    return gotalldataDrop
-  }
+  let dataDrop = function getAllDataDrop(dataDrop) {
+    console.log(dataDrop)
+    return dataDrop
+  }*/
 
   /*
   const response = await fetch('/api');
   const data = await response.json();
   const response2 = await fetch('/dragged');
   const dataDrop = await response2.json();*/
-  console.log(gotalldata,gotalldataDrop)
   //load the tiles that have been turned over
+/*
   for (i=0;i<data.length;i++){
     if (data[i].gameID === gameID) {
       console.log(gameID);
@@ -223,8 +243,8 @@ async function loadData(){
       let draggedtile = document.getElementById(dataDrop[k].id)
       box.append(draggedtile);
   }
-}
-}
+}*/
+
 
 
 // add listeners for dragging the tiles and dropping them

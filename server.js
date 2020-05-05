@@ -1,32 +1,36 @@
 require('dotenv').config();
 const mongodb = require('mongodb');
 const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
-let data=[];
-let dataDrop=[];
+
 
 
 async function getDataOver() {
-    mongodb.MongoClient.connect(uri, async function(err, client) {
+  let data,client
+  try{
+    client = await mongodb.MongoClient.connect(uri);/*, async function(err, client) {*/
 // async functions go here
-    let data = await client.db('heroku_bnwqfrc3').collection("database").find({}).toArray();
-    console.log(data)
-    return data;
-    client.close(function (err) {
-                  if(err) throw err;
-    });
-  });
+    db = client.db('heroku_bnwqfrc3');
+    let dbcollection = await db.collection('database')
+    let result = await dbcollection.find({});
+    return result.toArray();
+  }
+  catch (err){ console.error(err);}
+  finally {client.close();}
 };
 
 async function getDataDropOver() {
 // async functions go here
-  mongodb.MongoClient.connect(uri, async function(err, client) {
-    let dataDrop =  await client.db('heroku_bnwqfrc3').collection("databaseDropped").find({}).toArray();
-    return dataDrop;
-    client.close(function (err) {
-                  if(err) throw err;
-    });
-  });
-}
+  let dataDrop, client
+  try{
+  client = await mongodb.MongoClient.connect(uri);
+  db = client.db('heroku_bnwqfrc3');
+  let dbcollection = await db.collection('databaseDropped');
+  let result = dbcollection.find({});
+    return result.toArray();
+  }
+  catch (err) {console.error(err);}
+  finally {client.close();}
+};
 
 /*
 async function getData(client) {
@@ -97,6 +101,7 @@ let io = socket(server);
 
 io.sockets.on('connection', newConnection)
 
+/*
 app.get('/api', (request, response) => {
   console.log('getting data')
   let data = getDataOver();
@@ -106,9 +111,27 @@ app.get('/api', (request, response) => {
 app.get('/dragged', (request, response) => {
   let dataDrop = getDataDropOver();
   response.json(dataDrop);
-});
+});*/
 
-function newConnection(socket) {
+async function newConnection(socket) {
+
+  let getData = async () => {
+    let data = await getDataOver();
+    setTimeout(function () {
+      console.log(data)
+      io.sockets.emit('gotdata',data)},2000);
+    };
+
+
+  let getDataDrop = async () => {
+     let dataDrop =  await getDataDropOver();
+     setTimeout(function() {
+       console.log(dataDrop)
+       io.sockets.emit('gotdataDrop',dataDrop)},2000);
+     };
+
+
+
   console.log('new connection'+ socket.id );
   socket.on('turn', turnTile);
   socket.on('turn', saveData);
@@ -137,18 +160,6 @@ function newConnection(socket) {
     dataDropInsert(dataDrop);
   };
 
-  async function getData() {
-    let data = await getDataOver();
-    console.log(data)
-
-    socket.broadcast.emit('gotdata',data);
-
-  };
-
-  async function getDataDrop() {
-    let dataDrop = await getDataDropOver();
-    socket.broadcast.emit('gotdataDrop',dataDrop);
-};
 };
 /*
   function reSet(game_id) {
