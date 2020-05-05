@@ -117,17 +117,15 @@ async function newConnection(socket) {
 
   let getData = async () => {
     let data = await getDataOver();
-    setTimeout(function () {
-      console.log(data)
-      io.sockets.emit('gotdata',data)},2000);
+    console.log(data)
+    io.sockets.emit('gotdata',data);
     };
 
 
   let getDataDrop = async () => {
      let dataDrop =  await getDataDropOver();
-     setTimeout(function() {
        console.log(dataDrop)
-       io.sockets.emit('gotdataDrop',dataDrop)},2000);
+       io.sockets.emit('gotdataDrop',dataDrop);
      };
 
 
