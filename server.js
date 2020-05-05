@@ -120,7 +120,6 @@ async function newConnection(socket) {
 
   let getData = async () => {
     let data = await getDataOver();
-    console.log(data)
     io.sockets.emit('gotdata',data);
     };
 
@@ -140,6 +139,9 @@ async function newConnection(socket) {
   socket.on('drop', dropTile);
   socket.on('getdatamess', getData);
   socket.on('getdataDropmess', getDataDrop);
+  socket.on('drop_mid',dropMid);
+  socket.on('drop_mid', saveDataDropped);
+
 
   /*socket.on('reset', reSet);*/
 
@@ -152,6 +154,11 @@ async function newConnection(socket) {
     console.log(dataDrop)
     socket.broadcast.emit('drop',dataDrop);
   };
+
+  function dropMid(dataDrop) {
+    console.log(dataDrop)
+    socket.broadcast.emit('drop_middle',dataDrop)
+  }
 
   function saveData(data) {
     dataInsert(data);

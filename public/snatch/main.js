@@ -125,11 +125,11 @@ let createDivs = (totalTiles) => {
         div.append(draggedItem);
         let dataDrop = {
           id: draggedItem.id,
-          location: i,
+          location: div.id,
           gameID: gameID
         }
         console.log(dataDrop)
-        socket.emit('drop', dataDrop)
+        socket.emit('drop_mid', dataDrop)
       };
     };
   };
@@ -285,6 +285,7 @@ async function createListeners(tiles,boxes) {
 
 socket.on('turn', newDrawing);
 socket.on('drop', newDrawingDrop);
+socket.on('drop_middle', newDrawingDropMid);
 
 
 /*function setup() {
@@ -310,6 +311,15 @@ function newDrawingDrop(dataDrop) {
   let box = document.getElementById(dataDrop.location)
   box.append(target_tile);
 }
+};
+
+function newDrawingDropMid(dataDrop) {
+  if (dataDrop.gameID === gameID){
+  console.log(document.getElementById(dataDrop.location));
+  let target_tile = document.getElementById(dataDrop.id);
+  let div = document.getElementById(dataDrop.location)
+  div.append(target_tile);
+};
 };
 
 /*
