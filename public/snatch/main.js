@@ -70,7 +70,7 @@ let n=null;
 }*/
 
 
-let socket = io.connect('http://localhost:3000');
+let socket = io.connect();
 console.log(socket)
 let gameID = localStorage.getItem('gameID')
 console.log(gameID)
