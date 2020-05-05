@@ -294,16 +294,20 @@ socket.on('drop', newDrawingDrop);
 }*/
 function newDrawing(data) {
   console.log(data);
+  if (data.gameID === gameID) {
   let target_tile = document.getElementById(data.id);
   console.log(target_tile);
   target_tile.src = lettersList[data.i]
+}
 };
 
 function newDrawingDrop(dataDrop) {
+  if (data.gameID === gameID){
   console.log(document.getElementById(dataDrop.location));
   let target_tile = document.getElementById(dataDrop.id);
   let box = document.getElementById(dataDrop.location)
   box.append(target_tile);
+}
 };
 
 
