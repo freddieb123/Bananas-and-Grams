@@ -1,7 +1,8 @@
 require('dotenv').config();
 
 const mongodb = require('mongodb');
-const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
+const uri = process.env.MONGODB_URI;
+
 
 
 
