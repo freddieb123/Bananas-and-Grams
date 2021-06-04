@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const mongodb = require('mongodb');
-const uri = process.env.MONGODB_URI;
+const uri = "mongodb+srv://freddieb123:n_bbtf2RFdZB*Dc@cluster0.9nwsy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";;
 
 
 
@@ -11,7 +11,7 @@ async function getDataOver() {
   try{
     client = await mongodb.MongoClient.connect(uri);/*, async function(err, client) {*/
 // async functions go here
-    db = client.db('heroku_bnwqfrc3');
+    db = client.db('test');
     let dbcollection = await db.collection('database')
     let result = await dbcollection.find({});
     return result.toArray();
@@ -25,7 +25,7 @@ async function getDataDropOver() {
   let dataDrop, client
   try{
   client = await mongodb.MongoClient.connect(uri);
-  db = client.db('heroku_bnwqfrc3');
+  db = client.db('test');
   let dbcollection = await db.collection('databaseDropped');
   let result = dbcollection.find({});
     return result.toArray();
@@ -50,7 +50,7 @@ async function dataInsert(data) {
 
     const client = mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    client.db('heroku_bnwqfrc3').collection("database").insertOne(data);
+    client.db('test').collection("database").insertOne(data);
     client.close(function (err) {
                   if(err) throw err;
     });
@@ -60,7 +60,7 @@ async function dataInsert(data) {
 async function dataDropInsert(dataDrop) {
   const client = mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    client.db('heroku_bnwqfrc3').collection("databaseDropped").insertOne(dataDrop);
+    client.db('test').collection("databaseDropped").insertOne(dataDrop);
     client.close(function (err) {
                   if(err) throw err;
     });
