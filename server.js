@@ -1,7 +1,7 @@
 require('dotenv').config();
 
 const mongodb = require('mongodb');
-const uri = "mongodb+srv://freddieb123:n_bbtf2RFdZB*Dc@cluster0.9nwsy.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";;
+const uri = "mongodb+srv://freddieb123:n_bbtf2RFdZB*Dc@cluster0.9nwsy.mongodb.net/wordswords?retryWrites=true&w=majority";;
 
 
 
