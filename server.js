@@ -1,8 +1,7 @@
 require('dotenv').config();
 
-const mongodb = require('mongodb').MongoClient;
-const uri = "mongodb+srv://freddieb123:n_bbtf2RFdZB*Dc@cluster0.9nwsy.mongodb.net/test?retryWrites=true&w=majority";
-
+const mongodb = require('mongodb');
+const uri = 'mongodb://freddieb1234:QWERTY12@ds149744.mlab.com:49744/heroku_bnwqfrc3';
 
 
 
@@ -11,7 +10,7 @@ async function getDataOver() {
   try{
     client = await mongodb.MongoClient.connect(uri);/*, async function(err, client) {*/
 // async functions go here
-    db = client.db('test');
+    db = client.db('heroku_bnwqfrc3');
     let dbcollection = await db.collection('database')
     let result = await dbcollection.find({});
     return result.toArray();
@@ -25,7 +24,7 @@ async function getDataDropOver() {
   let dataDrop, client
   try{
   client = await mongodb.MongoClient.connect(uri);
-  db = client.db('test');
+  db = client.db('heroku_bnwqfrc3');
   let dbcollection = await db.collection('databaseDropped');
   let result = dbcollection.find({});
     return result.toArray();
@@ -50,7 +49,7 @@ async function dataInsert(data) {
 
     const client = mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    client.db('test').collection("database").insertOne(data);
+    client.db('heroku_bnwqfrc3').collection("database").insertOne(data);
     client.close(function (err) {
                   if(err) throw err;
     });
@@ -60,7 +59,7 @@ async function dataInsert(data) {
 async function dataDropInsert(dataDrop) {
   const client = mongodb.MongoClient.connect(uri, function(err, client) {
 // async functions go here
-    client.db('test').collection("databaseDropped").insertOne(dataDrop);
+    client.db('heroku_bnwqfrc3').collection("databaseDropped").insertOne(dataDrop);
     client.close(function (err) {
                   if(err) throw err;
     });
@@ -89,7 +88,7 @@ databaseDropped.loadDatabase();*/
 let app = express();
 
 //get app to listen on port 3000
-const port = process.env.PORT || config.httpPort;
+const port = process.env.PORT || 3000;
 let server = app.listen(port, () => {
   console.log('Starting server on port: ' + port)
 });
